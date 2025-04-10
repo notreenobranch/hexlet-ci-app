@@ -9,6 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        with:
+          node-version: '>= 18.0'
+          cache: 'npm'
+      - name: Print Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
       - run: make setup
       - run: make lint
       - name: run tests
