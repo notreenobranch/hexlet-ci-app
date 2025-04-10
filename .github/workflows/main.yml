@@ -1,4 +1,4 @@
-name: main
+name: Node CI
 on: push
 jobs:
   build:
@@ -6,15 +6,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          node-version: '>= 18.0'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Print Hello from Hexlet
-        uses: hexlet-components/hello-from-hexlet-action@release
       - run: make setup
       - run: make lint
-      - name: run tests
-        run: make test
+      - run: make test
+      - uses: hexlet-components/hello-from-hexlet-action@release
